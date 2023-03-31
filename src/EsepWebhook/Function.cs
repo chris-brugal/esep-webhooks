@@ -30,6 +30,6 @@ public class Function
 
         var response = client.Send(webRequest);
         using var reader = new StreamReader(response.Content.ReadAsStream());
-        return input.ToUpper();
+        return reader.ReadToEnd();
     }
 }
