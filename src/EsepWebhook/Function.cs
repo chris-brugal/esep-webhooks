@@ -1,5 +1,5 @@
-using Amazon.Lambda.Core;
 using System.Text;
+using Amazon.Lambda.Core;
 using Newtonsoft.Json;
 
 // Assembly attribute to enable the Lambda function's JSON input to be converted into a .NET class.
@@ -16,7 +16,7 @@ public class Function
     /// <param name="input"></param>
     /// <param name="context"></param>
     /// <returns></returns>
-    public string FunctionHandler(string input, ILambdaContext context)
+    public string FunctionHandler(object input, ILambdaContext context)
     {
         dynamic json = JsonConvert.DeserializeObject<dynamic>(input.ToString());
         
@@ -30,6 +30,7 @@ public class Function
 
         var response = client.Send(webRequest);
         using var reader = new StreamReader(response.Content.ReadAsStream());
+            
         return reader.ReadToEnd();
     }
 }
